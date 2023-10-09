@@ -1,0 +1,11 @@
+{
+  "name": "cordova-plugin-aswebauthentication",
+  "version": "1.0.5",
+  "cordova": {
+    "id": "cordova-plugin-aswebauthentication",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "description": "Cordova Plugin aswebauthentication API"
+}
