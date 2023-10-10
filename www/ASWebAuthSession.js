@@ -1,12 +1,16 @@
-
-var exec = require('cordova/exec');
-
 var PLUGIN_NAME = 'ASWebAuthSession';
+function ASWebAuthSession() {}
 
-var ASWebAuthSession = {
-  start: function(redirectScheme, requestURL, cb, errorCb) {
-    exec(cb, errorCb, PLUGIN_NAME, 'start', [redirectScheme, requestURL]);
+ASWebAuthSession.prototype.start = function(redirectScheme, requestURL, callback, errorCallback) {
+  exec(callback, errorCallback, PLUGIN_NAME, 'start', [redirectScheme, requestURL]);
+}
+
+ASWebAuthSession.install = function () {
+  if (!window.plugins) {
+    window.plugins = {};
   }
-};
 
-module.exports = ASWebAuthSession;
+  window.plugins.ASWebAuthSession = new ASWebAuthSession();
+  return window.plugins.ASWebAuthSession;
+};
+cordova.addConstructor(ASWebAuthSession.install);
