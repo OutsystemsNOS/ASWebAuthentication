@@ -8,7 +8,7 @@
 ASWebAuthenticationSession *_authenticationVC;
 
 
-@implementation SFAuthSession;
+@implementation ASWebAuthentication;
 
 - (void)pluginInitialize {
 }
