@@ -15,7 +15,7 @@ ASWebAuthenticationSession *_authenticationVC;
 
 - (void)start:(CDVInvokedUrlCommand *)command {
 
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 12.0, *)) {
         NSString* redirectScheme = [command.arguments objectAtIndex:0];
         NSURL* requestURL = [NSURL URLWithString:[command.arguments objectAtIndex:1]];
         ASWebAuthenticationSession* authenticationVC =
