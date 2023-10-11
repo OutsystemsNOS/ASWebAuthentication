@@ -22,7 +22,7 @@
 
         <js-module src="www/ASWebAuthSession.js" name="ASWebAuthSession">
             <runs/>
-            <clobbers target="window.plugins.ASWebAuthSession" />
+            <clobbers target="ASWebAuthSession" />
         </js-module>
     </platform>
 </plugin>
