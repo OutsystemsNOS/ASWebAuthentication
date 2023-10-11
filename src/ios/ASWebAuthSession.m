@@ -29,7 +29,8 @@ ASWebAuthenticationSession *_authenticationVC;
                                            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: callbackURL.absoluteString];
 
                                        } else {
-                                           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"error"];
+                                           NSString *errorMessage = [NSString stringWithFormat:@"error: %@, callbackURL: %@", error.localizedDescription, callbackURL.absoluteString];
+                                           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMessage];
                                        }
                                        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                    }];
