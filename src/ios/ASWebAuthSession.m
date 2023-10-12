@@ -18,9 +18,13 @@ ASWebAuthenticationSession *_authenticationVC;
     if (@available(iOS 12.0, *)) {
         NSString* redirectScheme = [command.arguments objectAtIndex:0];
         NSURL* requestURL = [NSURL URLWithString:[command.arguments objectAtIndex:1]];
+
+        NSString *urlString = [requestURL absoluteString];
+        urlString = [urlString stringByReplacingOccurrencesOfString:@"://" withString:@""];
+        NSURL *modifiedURL = [NSURL URLWithString:urlString];
         
         ASWebAuthenticationSession* authenticationVC =
-        [[ASWebAuthenticationSession alloc] initWithURL:requestURL
+        [[ASWebAuthenticationSession alloc] initWithURL:modifiedURL
                                    callbackURLScheme:redirectScheme
                                    completionHandler:^(NSURL * _Nullable callbackURL,
                                                        NSError * _Nullable error) {
