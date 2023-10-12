@@ -2,11 +2,9 @@
 #import "ASWebAuthSession.h"
 
 #import <AuthenticationServices/ASWebAuthenticationSession.h>
-
 #import <Cordova/CDVAvailability.h>
 
 ASWebAuthenticationSession *_authenticationVC;
-
 
 @implementation ASWebAuthSession;
 
@@ -15,7 +13,7 @@ ASWebAuthenticationSession *_authenticationVC;
 
 - (void)start:(CDVInvokedUrlCommand *)command {
 
-    if (@available(iOS 12.0, *)) {
+    if (@available(iOS 13.0, *)) {
         NSString* redirectScheme = [command.arguments objectAtIndex:0];
         NSURL* requestURL = [NSURL URLWithString:[command.arguments objectAtIndex:1]];
 
@@ -39,11 +37,8 @@ ASWebAuthenticationSession *_authenticationVC;
                                        }
                                        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                    }];
-        if (@available(iOS 13.0, *)) {
-            authenticationVC.presentationContextProvider = self;
-        } else {
-            // Fallback on earlier versions
-        }
+                                   
+        authenticationVC.presentationContextProvider = self;
         _authenticationVC = authenticationVC;
         [authenticationVC start];
     }
