@@ -18,6 +18,7 @@ ASWebAuthenticationSession *_authenticationVC;
     if (@available(iOS 11.0, *)) {
         NSString* redirectScheme = [command.arguments objectAtIndex:0];
         NSURL* requestURL = [NSURL URLWithString:[command.arguments objectAtIndex:1]];
+        
         ASWebAuthenticationSession* authenticationVC =
         [[ASWebAuthenticationSession alloc] initWithURL:requestURL
                                    callbackURLScheme:redirectScheme
@@ -34,9 +35,19 @@ ASWebAuthenticationSession *_authenticationVC;
                                        }
                                        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                    }];
+        //authenticationVC.presentationContextProvider = UIApplication.sharedApplication.keyWindow;
+        if (@available(iOS 13.0, *)) {
+            authenticationVC.presentationContextProvider = self;
+        } else {
+            // Fallback on earlier versions
+        }
         _authenticationVC = authenticationVC;
         [authenticationVC start];
     }
+}
+
+- (nonnull ASPresentationAnchor)presentationAnchorForWebAuthenticationSession:(nonnull ASWebAuthenticationSession *)session API_AVAILABLE(ios(13.0)){
+    return [[[UIApplication sharedApplication] windows] firstObject];
 }
 
 @end
