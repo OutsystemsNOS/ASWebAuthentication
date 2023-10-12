@@ -15,7 +15,7 @@ ASWebAuthenticationSession *_authenticationVC;
 
 - (void)start:(CDVInvokedUrlCommand *)command {
 
-    if (@available(iOS 11.0, *)) {
+    if (@available(iOS 12.0, *)) {
         NSString* redirectScheme = [command.arguments objectAtIndex:0];
         NSURL* requestURL = [NSURL URLWithString:[command.arguments objectAtIndex:1]];
         
@@ -35,7 +35,6 @@ ASWebAuthenticationSession *_authenticationVC;
                                        }
                                        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                    }];
-        //authenticationVC.presentationContextProvider = UIApplication.sharedApplication.keyWindow;
         if (@available(iOS 13.0, *)) {
             authenticationVC.presentationContextProvider = self;
         } else {
