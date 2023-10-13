@@ -21,7 +21,7 @@ ASWebAuthenticationSession *_authenticationVC2;
         urlString = [urlString stringByReplacingOccurrencesOfString:@"://" withString:@""];
         NSURL *modifiedURL = [NSURL URLWithString:urlString];
         
-        ASWebAuthenticationSession* authenticationVC =
+        ASWebAuthenticationSession* authenticationVC2 =
         [[ASWebAuthenticationSession alloc] initWithURL:modifiedURL
                                    callbackURLScheme:redirectScheme
                                    completionHandler:^(NSURL * _Nullable callbackURL,
@@ -38,9 +38,9 @@ ASWebAuthenticationSession *_authenticationVC2;
                                        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                                    }];
                                    
-        authenticationVC.presentationContextProvider = self;
-        _authenticationVC2 = authenticationVC;
-        [authenticationVC start];
+        authenticationVC2.presentationContextProvider = self;
+        _authenticationVC2 = authenticationVC2;
+        [authenticationVC2 start];
     }
 }
 
