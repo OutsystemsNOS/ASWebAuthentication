@@ -4,7 +4,7 @@
 #import <AuthenticationServices/ASWebAuthenticationSession.h>
 #import <Cordova/CDVAvailability.h>
 
-ASWebAuthenticationSession *_authenticationVC;
+ASWebAuthenticationSession *_webauthenticationVC;
 
 @implementation ASWebAuthSession;
 
@@ -26,7 +26,7 @@ ASWebAuthenticationSession *_authenticationVC;
                                    callbackURLScheme:redirectScheme
                                    completionHandler:^(NSURL * _Nullable callbackURL,
                                                        NSError * _Nullable error) {
-                                       _authenticationVC = nil;
+                                       _webauthenticationVC = nil;
                                        CDVPluginResult *result;
                                        if (callbackURL) {
                                            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: callbackURL.absoluteString];
@@ -39,7 +39,7 @@ ASWebAuthenticationSession *_authenticationVC;
                                    }];
                                    
         authenticationVC.presentationContextProvider = self;
-        _authenticationVC = authenticationVC;
+        _webauthenticationVC = authenticationVC;
         [authenticationVC start];
     }
 }
