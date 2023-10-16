@@ -39,7 +39,7 @@ ASWebAuthenticationSession *_authenticationVC;
                                    }];
                                    
         authenticationVC.presentationContextProvider = self;
-        _authenticationVC = authenticationVC2;
+        _authenticationVC = authenticationVC;
         [authenticationVC start];
     }
 }
