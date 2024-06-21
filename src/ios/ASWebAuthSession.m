@@ -16,27 +16,33 @@ ASWebAuthenticationSession *_authenticationVC;
     if (@available(iOS 13.0, *)) {
         NSString* redirectScheme = [command.arguments objectAtIndex:0];
         NSURL* requestURL = [NSURL URLWithString:[command.arguments objectAtIndex:1]];
-        
-        ASWebAuthenticationSession* authenticationVC =
-        [[ASWebAuthenticationSession alloc] initWithURL:requestURL
-                                   callbackURLScheme:redirectScheme
-                                   completionHandler:^(NSURL * _Nullable callbackURL,
-                                                       NSError * _Nullable error) {
-                                       _authenticationVC = nil;
-                                       CDVPluginResult *result;
-                                       if (callbackURL) {
-                                           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: callbackURL.absoluteString];
 
-                                       } else {
-                                           
-                                           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"error"];
-                                       }
-                                       [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-                                   }];
-                                   
-        authenticationVC.presentationContextProvider = self;
-        _authenticationVC = authenticationVC;
-        [authenticationVC start];
+        @try{
+            ASWebAuthenticationSession* authenticationVC =
+            [[ASWebAuthenticationSession alloc] initWithURL:requestURL
+                                       callbackURLScheme:redirectScheme
+                                       completionHandler:^(NSURL * _Nullable callbackURL,
+                                                           NSError * _Nullable error) {
+                                           _authenticationVC = nil;
+                                           CDVPluginResult *result;
+                                           if (callbackURL) {
+                                               result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: callbackURL.absoluteString];
+    
+                                           } else {
+                                               
+                                               result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"error"];
+                                           }
+                                           [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+                                       }];
+                                       
+            authenticationVC.presentationContextProvider = self;
+            _authenticationVC = authenticationVC;
+            [authenticationVC start];
+            
+        }@catch (NSException* exception) {
+              CDVPluginResult* pluginResultErr = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[exception reason]];  
+              [self.commandDelegate sendPluginResult:pluginResultErr callbackId:command.callbackId];
+        }
     }
 }
 
